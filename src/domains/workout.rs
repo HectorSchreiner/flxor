@@ -1,4 +1,4 @@
-use crate::domains::exercise::Exercise;
+use crate::domains::exercise::{self, Exercise};
 
 use ::uuid::Uuid;
 use ::chrono::{DateTime, Utc};
@@ -13,6 +13,10 @@ pub struct Workout {
 impl Workout {
     pub fn new(name: &str) -> Self {
         Self { name: WorkoutName::new(name), id: WorkoutId::new(), date: Utc::now(), exercises: Vec::new() }
+    }
+    
+    pub fn add_exercise(&mut self, exercise: Exercise) {
+        self.exercises.push(exercise);
     }
 }
 
