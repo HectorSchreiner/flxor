@@ -53,21 +53,13 @@ pub struct NewSetError(String);
 
 #[derive(Debug, PartialEq, PartialOrd, Clone)]
 pub struct ExerciseSet {
-    reps: ExerciseReps,
-    weight: ExerciseWeight,
+    pub reps: ExerciseReps,
+    pub weight: ExerciseWeight,
 }
 
 impl ExerciseSet {
     pub fn new(reps: u16, weight: u16) -> anyhow::Result<Self, NewSetError> {
         Ok(Self { reps: ExerciseReps(reps), weight: ExerciseWeight(weight) })
-    }
-
-    pub fn reps(&self) -> u16 {
-        self.reps.0.clone()
-    }
-
-    pub fn weight(&self) -> u16 {
-        self.weight.0.clone()
     }
 }
 
@@ -78,7 +70,7 @@ impl ExerciseName {
         Self(name.to_string())
     }
 
-    pub fn get(&self) -> String {
+    pub fn as_string(&self) -> String {
         self.0.clone().to_string()
     }
 }
@@ -88,7 +80,11 @@ pub struct ExerciseReps(u16);
 impl ExerciseReps {
     pub fn new(reps: u16) -> Self {
         Self(reps)
-    }   
+    }
+    
+    pub fn as_u16(&self) -> u16 {
+        self.0.clone()
+    }
 }
 
 #[derive(Debug, PartialEq, PartialOrd, Clone)]
@@ -97,6 +93,10 @@ impl ExerciseWeight {
     pub fn new(weight: u16) -> Self {
         Self(weight)
     }   
+
+    pub fn as_u16(&self) -> u16 {
+        self.0.clone()
+    }
 }
 
 #[derive(Debug, PartialEq, PartialOrd, Clone)]
@@ -104,6 +104,10 @@ pub struct ExerciseId(Uuid);
 impl ExerciseId {
     pub fn new() -> Self {
         Self(Uuid::new_v4())
+    }
+
+    pub fn as_string(&self) -> String {
+        self.0.to_string().clone()
     }
 }
 

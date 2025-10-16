@@ -9,14 +9,15 @@ edition = "2021"
 [dependencies]
 anyhow = "1.0.100"
 chrono = "0.4.42"
-dioxus = { version = "0.6.0", features = [] }
+dioxus = { version = "0.6.0", features = [ ] }
+dioxus-logger = "0.6.2"
 rusqlite = "0.37.0"
 serde = "1.0.228"
 thiserror = "2.0.17"
 uuid =  { version = "1.18.1", features = ["v4"] }
 
 [features]
-default = ["mobile"]
+default = ["desktop"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]

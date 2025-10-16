@@ -1,17 +1,21 @@
-use std::ops::Add;
-
-use anyhow::{Error, Result};
 use thiserror::Error;
 
+use crate::domains::workout::Workout;
+
 pub trait WorkoutRepo {
-    fn add_exercise() -> anyhow::Result<(), AddWorkoutError>;
-    fn remove_exercise() -> anyhow::Result<(), RemoveWorkoutError>;
+    fn add_workout() -> anyhow::Result<(), WorkoutDatabaseError>;
+    fn remove_workout() -> anyhow::Result<(), WorkoutDatabaseError>;
+    fn list_workouts() -> anyhow::Result<Vec<Workout>, WorkoutDatabaseError>;
 }
 
 #[derive(Error, Debug)]
-#[error["{0}, could not be added to the database"]]
-pub struct AddWorkoutError(String);
+pub enum WorkoutDatabaseError {
+    #[error("Failed to list workouts: {0}")]
+    List(String), 
 
-#[derive(Error, Debug)]
-#[error["{0}, could not be removed from the database"]]
-pub struct RemoveWorkoutError(String);
+    #[error("Failed to remove workout: {0}")]
+    Remove(String),
+
+    #[error("Failed to add workout: {0}")]
+    Add(String),
+}

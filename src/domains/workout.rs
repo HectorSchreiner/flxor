@@ -37,7 +37,7 @@ impl WorkoutName {
     pub fn new(name: &str) -> Self {
         Self(name.to_string())
     }
-    pub fn get(&self) -> String {
+    pub fn as_string(&self) -> String {
         self.0.clone().to_string()
     }
 }
@@ -49,7 +49,7 @@ impl WorkoutId {
         Self(Uuid::new_v4())
     }
     
-    pub fn get(&self) -> String {
+    pub fn as_string(&self) -> String {
         self.0.to_string().clone()
     }
 }

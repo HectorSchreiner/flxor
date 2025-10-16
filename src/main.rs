@@ -4,7 +4,9 @@ pub mod domains;
 pub mod repos;
 pub mod frontend;
 
+use dioxus_logger::tracing::Level;
 use frontend::app::*;
+use repos::sqlite::*;
 
 use crate::domains::{exercise::{Exercise, ExerciseSet, Muscle, MuscleActivationLevel, MuscleGroup}, workout::Workout};
 
@@ -13,13 +15,15 @@ const MAIN_CSS: Asset = asset!("/assets/main.css");
 const HEADER_SVG: Asset = asset!("/assets/header.svg");
 
 fn main() {
-    dioxus::launch(App);
-    
+    dioxus_logger::init(Level::INFO).expect("logger failed to init");
+    let db = SqliteDatabase::new("workout.db").expect("Database failed to init");
 
+    dioxus::launch(App);
 }
 
 #[component]
 fn App() -> Element {
+
     let mut workout = Workout::new("Upper Body Workout");
     
     let mut bench_press = Exercise::new("Bench Press").unwrap();

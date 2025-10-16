@@ -22,7 +22,7 @@ pub fn WorkoutDisplay(workout: Workout) -> Element {
     rsx! {
         div { 
             id: "workout-card",
-            h2 { "{workout.name.get()}" }
+            h2 { "{workout.name.as_string()}" }
         },
         h3 { "Exercises:" },
         ul { 
@@ -33,11 +33,11 @@ pub fn WorkoutDisplay(workout: Workout) -> Element {
                     p { id: "muscle-tag", "Activation Level: {group.activation()} " }
                 }
                 li {
-                    span { id: "exercise-item", "{exercise.name.get()}" }
+                    span { id: "exercise-item", "{exercise.name.as_string()}" }
                     for set in exercise.sets.iter() {
                         div { 
-                            span { id:"reps", "Reps: {set.reps()} " }
-                            span { id:"weight", "Weight: {set.weight()} kg " }
+                            span { id:"reps", "Reps: {set.reps.as_u16()} " }
+                            span { id:"weight", "Weight: {set.weight.as_u16()} kg " }
                         }
                     }
                 }
